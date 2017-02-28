@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task_04</title>
+	<style type="text/css">
+		ul li {
+			padding: 8px;
+			float: left;
+			background-color: red;
+			font-size: 30px;
+			margin-left: 5px;
+			list-style-type: none;
+			text-align: center;
+		}
+	</style>
+<body>
+	<input type="text" id="input">
+	<input type="button" value="左侧入" id="insertLeftL" onclick="insertLeft()">
+	<input type="button" value="右侧入" style="margin-right: 20px" onclick="insertRight()">
+	<input type="button" value="左侧出" onclick="deleteLeft()">
+	<input type="button" value="右侧出" onclick="deleteRight()">
+
+	<ul id="show">
+	</ul>
+
+	<script>
+		var oInput = document.getElementById("input");	
+		var oShow = document.getElementById("show")	
+
+		function insertRight() {
+			var getNum = oInput.value;
+			var newEle = document.createElement("li");
+			newEle.innerHTML = getNum;
+			var position = document.getElementById("show");
+			position.appendChild(newEle);
+		}
+
+		function insertLeft() {
+			var getNum = oInput.value;
+			var newEle = document.createElement("li");
+			newEle.innerHTML = getNum;
+			oShow.insertBefore(newEle, oShow.childNodes[0]);
+		}
+
+		function deleteRight() {
+			var rightEle = oShow.lastChild;
+			alert(rightEle.innerHTML);
+			oShow.removeChild(rightEle);
+		}
+
+		function deleteLeft() {
+			var leftEle = oShow.firstChild;
+			alert(leftEle.innerHTML);
+			oShow.removeChild(leftEle);
+		}
+
+
+	</script>	
+</body>
+</html>
