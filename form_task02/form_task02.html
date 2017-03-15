@@ -64,7 +64,7 @@
                     <td><input type="text" id="t1"/></td>
                 </tr>
                 <tr class="hint" id="h1">
-                    <td></td>
+                    <td> </td>
                     <td id="c1">必填，长度为4~16位字符</td>
                 </tr>
 
@@ -73,7 +73,7 @@
                     <td><input type="password" id="t2"/></td>
                 </tr>
                 <tr class="hint" id="h2">
-                    <td></td>
+                    <td> </td>
                     <td id="c2">必填，长度为4~16位字符,包含字母和数字</td>
                 </tr>
 
@@ -82,7 +82,7 @@
                     <td><input type="password" id="t3"/></td>
                 </tr>
                 <tr class="hint" id="h3">
-                    <td></td>
+                    <td> </td>
                     <td id="c3">必填，必须与密码相同</td>
                 </tr>
 
@@ -91,7 +91,7 @@
                     <td><input type="text" id="t4"/></td>
                 </tr>
                 <tr class="hint" id="h4">
-                    <td></td>
+                    <td> </td>
                     <td id="c4">填写正确的邮箱格式</td>
                 </tr>
 
@@ -100,7 +100,7 @@
                     <td><input type="text" id="t5"/></td>
                 </tr>
                 <tr class="hint" id="h5">
-                    <td></td>
+                    <td> </td>
                     <td id="c5">填写正确的手机号码</td>
                 </tr>
 
@@ -112,14 +112,17 @@
         </form>
     </div>
     <script type="text/javascript">
+    //匿名函数方式 等价于 window.onload = function() {}？
         (function(){
-            
+
+            //创建描叙提示的JSON对象
             var hintText=[{hint:"必填，长度为4~16位字符",right:"名称格式正确",wrong:"名称格式有误",isPassed:false},
                         {hint:"必填，长度为4~16位字符,包含字母和数字",right:"密码可用",wrong:"密码不可用",isPassed:false},
                         {hint:"必填，必须与密码相同",right:"密码输入一致",wrong:"密码输入不一致",isPassed:false},
                         {hint:"填写正确的邮箱格式",right:"邮箱格式正确",wrong:"邮箱格式错误",isPassed:false},
                         {hint:"必填，长度为4~16位字符",right:"手机格式正确",wrong:"手机格式错误",isPassed:false}];
 
+            //监听事件函数的兼容处理            
             var regEvent=function(node, event, func){
                 if (node.addEventListener)
                     node.addEventListener(event, func);
@@ -130,11 +133,14 @@
             };
 
             function regValue(id){
+                //定义函数变量
                 var flag=false;
                 var input=document.getElementById("t"+id);
                 var hint=document.getElementById("h"+id);
                 var content=document.getElementById("c"+id);
                 var value=input.value;
+
+                //正则表达式检测text.value中的内容
                 switch (parseInt(id)){
                     case 1:
                         flag=/^[a-zA-Z0-9_]{4,16}$/.test(value.replace(/[\u0391-\uFFE5]/g,"nn"));
@@ -164,23 +170,36 @@
                         hintText[id-1].isPassed=true;
                     }
             };
+
+            //获取所有表单
             var inputs=document.getElementsByTagName("input");
+
+            //forEach是数组循环，这是什么意思哦？  函数的功能是遍历inputs的nodelist，这种方法还要研究
             [].forEach.call(inputs,function(v){
+
                 var id=v.getAttribute("id").slice(1);
                 var hintID="h"+v.getAttribute("id").slice(1);
+                //绑定聚焦事件，显示display:none屏蔽的内容
                 regEvent(v,"focus",function(){
                     document.getElementById(hintID).style.display="table-row";
                 });
+                //绑定失焦事件：regValue判断表单内容作出提示
                 regEvent(v,"blur",function(){regValue(id)});
             });
+
+            //绑定提交按钮点击事件
             regEvent(document.getElementById("submit"),"click",function(e){
+                //阻止默认事件
                 e.preventDefault();
+                //把regValue(1-5)执行一次
                 [1,2,3,4,5].forEach(function(v){
                     regValue(v);
                 });
+                //every用来检测是否都能通过callback函数的测试，如果可以，返回true，否则返回false
                 var flag=hintText.every(function(v){
                    return v.isPassed;
                 });
+
                 if(flag)
                     alert("提交成功");
                 else
