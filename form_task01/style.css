@@ -1,0 +1,29 @@
+#form {
+	margin: 20% 20%;
+	font-family: '微软雅黑';
+} 
+
+#form span {
+	font-size: 25px;
+	font-weight: bold;
+	margin-right: 20px;
+}
+
+
+
+input:first-child {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #a8a8a8;
+    padding-left: 10px;
+}
+
+input:last-child {
+    background-color: #2F79BA;
+    border: 2px solid white;
+    color: white;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+ }

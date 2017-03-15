@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#wrap input {
+			background-color: white;
+			margin-left: 10px;
+		}
+
+		#wrap input.active {
+			background-color: yellow;
+		}
+
+		#wrap div {
+			width: 200px;
+			height: 200px;
+			background-color: #ccc;
+			display: none;
+			margin-top: 10px;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			var wrap = document.getElementById('wrap');
+			var btn = wrap.getElementsByTagName('input');
+			var dpl = wrap.getElementsByTagName('div');
+
+			for(var i=0;i<btn.length;i++) {
+				btn[i].index = i;
+				btn[i].onclick = function() {
+					for(var i=0;i<btn.length;i++) {
+						btn[i].className = "";
+						dpl[i].style.display = "none";
+					}
+					this.className = "active";
+					dpl[this.index].style.display = "block";
+				}				
+			}
+ 		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<input value="aaa" type="button" class="active">
+		<input value="bbb" type="button">
+		<input value="ccc" type="button">
+		<div style="display: block;">123456</div>
+		<div>asdfgg</div>
+		<div>23f42fd</div>
+	</div>
+	
+</body>
+</html>

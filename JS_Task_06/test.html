@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	
+	</style>
+	<script>
+		window.onload = function() {
+			var checkRegisterForm = function () {
+				// 节点获取
+				var username = document.querySelector( 'form[name="test-form"] input[name=username]' );
+				var password1 = document.querySelector( 'form[name="test-form"] input[id=password]' );
+				var password2 = document.querySelector( 'form[name="test-form"] input[id=password-2]' );
+
+				// 用户名允许的验证规则
+				var allow_username = /[a-zA-Z0-9]{3,10}/;
+				// 密码允许的验证规则
+				var allow_password = /[a-zA-Z0-9!@#$%^&*()|\\<>?/.]{6,20}/;
+
+
+				// 用户名必须是3-10位数字或字符串
+				if ( allow_username.test( username.value ) === false ) {
+				    alert( '用户名必须是3-10位数字或字符串' );
+				    return false;
+				}
+
+				// 密码必须是6-20位数字或字符串或特殊字符
+				if ( allow_password.test( password1.value ) === false ||  allow_password.test( password2.value ) === false) {
+				    alert( '密码必须是6-20位数字或字符串或特殊字符' );
+				    return false;
+				}
+				// 密码和确认密码必须一致
+				if ( password1.value !== password2.value ) {
+				    alert( '密码和确认密码必须一致' );
+				    return false;
+				}
+
+				return true;
+			}
+		}
+	</script>
+</head>
+<body>
+	<form id="test-register" action="#" target="_blank" onsubmit="return checkRegisterForm()">
+    <p id="test-error" style="color:red"></p>
+    <p>
+        用户名: <input type="text" id="username" name="username">
+    </p>
+    <p>
+        口令: <input type="password" id="password" name="password">
+    </p>
+    <p>
+        重复口令: <input type="password" id="password-2">
+    </p>
+    <p>
+        <button type="submit">提交</button> <button type="reset">重置</button>
+    </p>
+    <input type="file">
+</form>
+</body>
+</html>

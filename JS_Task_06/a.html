@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>task_04</title>
+	<title>a</title>
 	<style type="text/css">
+		ul {
+			display: -webkit-flex; /* for webkit */
+            display: flex;
+            width: 500px;
+            height: 300px;
+            align-items: flex-end;
+		}
+
 		ul li {
 			padding: 8px;
 			float: left;
@@ -11,7 +19,15 @@
 			font-size: 30px;
 			margin-left: 5px;
 			list-style-type: none;
-			text-align: center;
+			text-align: center;			
+		}
+
+		.clearfix:after{
+			content:".";
+			display:block;
+			visibility:hidden;
+			height:0;
+			clear:both;
 		}
 	</style>
 <body>
@@ -20,6 +36,7 @@
 	<input type="button" value="右侧入" style="margin-right: 20px" onclick="insertRight()">
 	<input type="button" value="左侧出" onclick="deleteLeft()">
 	<input type="button" value="右侧出" onclick="deleteRight()">
+	<input type="button" value="排序" id="sort" onclick="bubbleSort()">
 
 	<ul id="show">
 	</ul>
@@ -33,6 +50,7 @@
 			if((/^\d+$/).test(getNum)) {
 				var newEle = document.createElement("li");
 				newEle.innerHTML = getNum;
+				newEle.style.height = getNum*2 + "px";
 				var position = document.getElementById("show");
 				position.appendChild(newEle);
 				newEle.addEventListener('click', function() {
@@ -49,6 +67,7 @@
 			if((/^\d+$/).test(getNum)) {
 				var newEle = document.createElement("li");
 				newEle.innerHTML = getNum;
+				newEle.style.height = getNum*2 + "px";
 				oShow.insertBefore(newEle, oShow.childNodes[0]);
 				newEle.addEventListener('click', function() {
 					oShow.removeChild(this);
@@ -69,6 +88,33 @@
 			var leftEle = oShow.firstChild;
 			alert(leftEle.innerHTML);
 			oShow.removeChild(leftEle);
+		}
+
+		function exChange(f, c1, c2) {
+			f.insertBefore(c2, c1);
+		}
+
+		function _exChange(f, c1, c2) {
+			return function() {
+				exChange(f, c1, c2);
+			}
+		}
+
+		function bubbleSort() {
+			var nodeList = document.getElementsByTagName('li');
+			var i = nodeList.length, j;
+			var temp;
+			var timer;
+			// var timer;
+			while (i>0) {
+				for(j=0; j<i-1; j++) {
+					if(Number(nodeList[j].innerHTML)>Number(nodeList[j+1].innerHTML)) {			
+						timer = setTimeout(_exChange(oShow, nodeList[i], nodeList[j]), 500); 
+						// 
+					}
+				}
+				i--;clearTimeout(timer);
+			}
 		}
 
 		var instLeftBtn = document.getElementById("insertLeft");

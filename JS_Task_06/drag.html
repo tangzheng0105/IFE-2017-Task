@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag</title>
+	<style>
+		#sq {
+			width:200px;
+			height: 200px;
+			position: absolute;
+			left: 100px;
+			top: 200px;
+			background-color: blue; 
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			var sq = document.getElementById('sq');
+			var show = document.getElementById('show');
+
+			sq.onmousedown = function() {
+				var disX = event.clientX - sq.offsetLeft;
+				var disY = event.clientY - sq.offsetTop;
+
+				// show.innerText = "X: " + event.clientX + "Y: " + event.clientY;
+
+				document.onmousemove = function() {
+					sq.style.left = event.clientX - disX + 'px';
+					sq.style.top = event.clientY - disY + 'px';
+					sq.style.background = '#ccc';
+					show.innerText = "X: " + event.clientX + "Y: " + event.clientY + "sqX: " + disX + "sqY: " + disY;
+				}
+
+				document.onmouseup = function() {
+					document.onmouseup = null;
+					document.onmousemove = null;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="show"></div>
+	<div id="sq"></div>
+</body>
+</html>
