@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>submit</title>
+</head>
+<body>
+    <div class="container login">
+      <form id="login" action="/login/" method="post">
+        <div class="one-third column">
+          <img src="img/logo.png" alt="logo" id="logo" />
+        </div>
+        <div class="two-thirds column" id="main">
+          <fieldset>
+            <legend>Login</legend>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" />
+            <label for="pwd">Password:</label>
+            <input type="password" id="pwd" name="pwd" />
+            <input type="submit" value="Login" />
+          </fieldset>
+        </div><!-- .two-thirds -->
+      </form>
+    </div><!-- .container -->
+	<script>
+		(function() {
+			var form = document.getElementById('login');//获取form元素
+			addEventListener(form, 'submit', function(e) {
+				e.preventDefault();//当用户提交时阻止重复提交
+				var elements = this.elements;
+				var username = elements.username.value;
+				var msg = 'Welcome ' + username;
+				document.getElementById('main').textContent = msg;
+			});
+		} ());
+	</script>
+</body>
+</html>
